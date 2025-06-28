@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd9be7c0-c4e3-49bf-94b3-9f98b210bab2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/clients/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clients/api_client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clients/authentication/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clients/authentication/authentication_client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/httpx_client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clients/users/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clients/users/public_users_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
