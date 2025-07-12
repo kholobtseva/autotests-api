@@ -50,6 +50,6 @@ class PrivateUsersClient(APIClient):
         Метод удаления пользователя по идентификатору.
 
         :param user_id: Идентификатор пользователя.
-        :return: Ответ от сервера в виде объекта httpx.Response
+        :return: Ответ от сервера в виде объекта httpx.Respon
         """
         return self.delete(f"/api/v1/users/{user_id}")
