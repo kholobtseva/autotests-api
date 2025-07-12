@@ -40,10 +40,10 @@ class CoursesClient(APIClient):
         """
         Метод получения списка курсов.
 
-        :param query: Словарь с userId.
+        :param query: Словарь с course.
         :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.get("/api/v1/courses", params=query)
+        return self.get("/api/v1/exercises", params=query)
 
     def get_course_api(self, course_id: str) -> Response:
         """
