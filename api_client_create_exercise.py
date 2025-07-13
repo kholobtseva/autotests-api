@@ -1,8 +1,12 @@
 from clients.courses.courses_client import get_courses_client, CreateCourseRequestDict
+from clients.exercises.exercises_client import get_exercise_client
+from clients.exercises.exercises_client import CreateExerciseRequestDict
 from clients.files.files_client import get_files_client, CreateFileRequestDict
 from clients.private_http_builder import AuthenticationUserDict
 from clients.users.public_users_client import get_public_users_client, CreateUserRequestDict
 from tools.fakers import get_random_email
+
+
 
 public_users_client = get_public_users_client()
 
@@ -23,6 +27,7 @@ authentication_user = AuthenticationUserDict(
 )
 files_client = get_files_client(authentication_user)
 courses_client = get_courses_client(authentication_user)
+exercises_client = get_exercise_client(authentication_user)
 
 # Загружаем файл
 create_file_request = CreateFileRequestDict(
@@ -46,3 +51,16 @@ create_course_request = CreateCourseRequestDict(
 create_course_response = courses_client.create_course(create_course_request)
 print('Create course data:', create_course_response)
 
+# Создаем задание
+create_exercises_request = CreateExerciseRequestDict(
+    title = "task1",
+    courseId= create_course_response['course']['id'],
+    maxScore= 10,
+    minScore= 0,
+    orderIndex= 1,
+    description= "Description to task1",
+    estimatedTime= "2 hours"
+)
+
+create_exercises_response = exercises_client.create_exercise(create_exercises_request)
+print('Create exercises data:',create_exercises_response)
