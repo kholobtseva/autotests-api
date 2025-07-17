@@ -1,27 +1,3 @@
-"""{
-  "course": {
-    "id": "string",
-    "title": "string",
-    "maxScore": 0,
-    "minScore": 0,
-    "description": "string",
-    "previewFile": {
-      "id": "string",
-      "filename": "string",
-      "directory": "string",
-      "url": "https://example.com/"
-    },
-    "estimatedTime": "string",
-    "createdByUser": {
-      "id": "string",
-      "email": "user@example.com",
-      "lastName": "string",
-      "firstName": "string",
-      "middleName": "string"
-    }
-  }
-}"""
-
 from pydantic import BaseModel, Field, ConfigDict, computed_field, HttpUrl, EmailStr, ValidationError
 from pydantic.alias_generators import to_camel
 import uuid
