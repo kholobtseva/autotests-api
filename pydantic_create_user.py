@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, constr
 import httpx
-from tools.fakers import get_random_email, generate_patronymic, correct_surname, detect_gender
+from tools.fakers import fake, generate_patronymic, correct_surname, detect_gender
 from faker import Faker
 
 fake = Faker("ru_RU")
@@ -89,7 +89,7 @@ class CreateUserResponseSchema(BaseModel):
 # Создание тестового пользователя
 user = UserSchema(
     id="user-id",
-    email=get_random_email(),
+    email=fake.email(),
     lastName=fake.last_name(),
     firstName= fake.first_name(),
     middleName=fake.middle_name()

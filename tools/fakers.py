@@ -1,80 +1,117 @@
 import time
 from faker import Faker
 
-def get_random_email():
-    return f"test{time.time()}@example.com" # уникальный email для тестов
+class Fake:
+    """
+    Класс для генерации случайных тестовых данных с использованием библиотеки Faker.
+    """
+
+    def __init__(self, faker: Faker):
+        """
+        :param faker: Экземпляр класса Faker, который будет использоваться для генерации данных.
+        """
+        self.faker = faker
+
+    def text(self) -> str:
+        """
+        Генерирует случайный текст.
+
+        :return: Случайный текст.
+        """
+        return self.faker.text()
+
+    def uuid4(self) -> str:
+        """
+        Генерирует случайный UUID4.
+
+        :return: Случайный UUID4.
+        """
+        return self.faker.uuid4()
+
+    def email(self) -> str:
+        """
+        Генерирует случайный email.
+
+        :return: Случайный email.
+        """
+        return self.faker.email()
+
+    def sentence(self) -> str:
+        """
+        Генерирует случайное предложение.
+
+        :return: Случайное предложение.
+        """
+        return self.faker.sentence()
+
+    def password(self) -> str:
+        """
+        Генерирует случайный пароль.
+
+        :return: Случайный пароль.
+        """
+        return self.faker.password()
+
+    def last_name(self) -> str:
+        """
+        Генерирует случайную фамилию.
+
+        :return: Случайная фамилия.
+        """
+        return self.faker.last_name()
+
+    def first_name(self) -> str:
+        """
+        Генерирует случайное имя.
+
+        :return: Случайное имя.
+        """
+        return self.faker.first_name()
+
+    def middle_name(self) -> str:
+        """
+        Генерирует случайное отчество/среднее имя.
+
+        :return: Случайное отчество.
+        """
+        return self.faker.first_name()
+
+    def estimated_time(self) -> str:
+        """
+        Генерирует строку с предполагаемым временем (например, "2 weeks").
+
+        :return: Строка с предполагаемым временем.
+        """
+        return f"{self.integer(1, 10)} weeks"
+
+    def integer(self, start: int = 1, end: int = 100) -> int:
+        """
+        Генерирует случайное целое число в заданном диапазоне.
+
+        :param start: Начало диапазона (включительно).
+        :param end: Конец диапазона (включительно).
+        :return: Случайное целое число.
+        """
+        return self.faker.random_int(start, end)
+
+    def max_score(self) -> int:
+        """
+        Генерирует случайный максимальный балл в диапазоне от 50 до 100.
+
+        :return: Случайный балл.
+        """
+        return self.integer(50, 100)
+
+    def min_score(self) -> int:
+        """
+        Генерирует случайный минимальный балл в диапазоне от 1 до 30.
+
+        :return: Случайный балл.
+        """
+        return self.integer(1, 30)
 
 
-from typing import Optional, Literal
-
-fake = Faker("ru_RU")
-
-# Расширенный словарь исключений
-GENDER_EXCEPTIONS = {
-    # Мужские имена на 'а'/'я'
-    'радован': 'male',
-    'ника': 'male',
-    'савва': 'male',
-    'фома': 'male',
-    'кузьма': 'male',
-    'всеслав': 'male',
-    'ярополк': 'male',
-    'мирослав': 'male',
-    'данила': 'male',
-
-    # Женские имена без стандартных окончаний
-    'любовь': 'female',
-    'нелли': 'female',
-    'ассоль': 'female',
-    'николь': 'female'
-}
+# Создаем экземпляр класса Fake с использованием Faker
+fake = Fake(faker=Faker())
 
 
-def detect_gender(first_name: str) -> Literal['male', 'female']:
-    """Улучшенное определение пола с учетом древнерусских имен"""
-    name = first_name.lower().strip()
-
-    # Сначала проверяем явные исключения
-    if name in GENDER_EXCEPTIONS:
-        return GENDER_EXCEPTIONS[name]
-
-    # Древнерусские и старославянские имена
-    if any(name.endswith(end) for end in ('слав', 'мир', 'полк', 'волод', 'рат')):
-        return 'male'
-
-    # Стандартные правила
-    if name.endswith(('а', 'я', 'ия', 'ина', 'ла', 'на', 'та', 'фа', 'ва', 'ь')):
-        return 'female'
-
-    return 'male'
-
-
-def correct_surname(surname: str, gender: Literal['male', 'female']) -> str:
-    """Умная коррекция фамилии с сохранением правильных форм"""
-    # Если фамилия уже соответствует полу - не меняем
-    if (gender == 'female' and surname.endswith(('ова', 'ева', 'ина', 'ая'))) or \
-            (gender == 'male' and not surname.endswith(('ова', 'ева', 'ая'))):
-        return surname
-
-    if gender == 'female':
-        if surname.endswith(('ов', 'ев', 'ёв', 'ин', 'ын')):
-            return surname + 'а'
-        elif surname.endswith(('ий', 'ый')):
-            return surname[:-2] + 'ая'
-        elif surname.endswith('ой'):
-            return surname[:-2] + 'ая'
-    else:  # male
-        if surname.endswith(('ова', 'ева')):
-            return surname[:-1]  # Иванова → Иванов
-        elif surname.endswith('ая'):
-            return surname[:-2] + 'ий'  # Крутая → Крутой
-
-    return surname
-
-
-def generate_patronymic(first_name: str) -> str:
-    """Генерация отчества с проверкой согласованности"""
-    gender = detect_gender(first_name)
-    if gender == 'female':
-        return fake.middle_name_female()
-    return fake.middle_name_male()

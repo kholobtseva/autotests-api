@@ -82,6 +82,7 @@ class CoursesClient(APIClient):
         response = self.create_course_api(request)
         return CreateCourseResponseSchema.model_validate_json(response.text)
 
+
     def update_course(self, course_id: str, request: UpdateCourseRequestSchema) -> CourseSchema:
         """
         Метод обновления курса с валидацией ответа.
