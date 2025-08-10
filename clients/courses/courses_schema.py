@@ -34,7 +34,7 @@ class CreateCourseRequestSchema(BaseModel):
     Описание структуры запроса на создание курса.
     """
 
-    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
+    model_config = ConfigDict(populate_by_name=True)
 
     title: str = Field(default_factory=fake.sentence)
     max_score: int = Field(alias="maxScore", default_factory=fake.max_score)
@@ -48,23 +48,14 @@ class CreateCourseResponseSchema(BaseModel):
     """
     Описание структуры ответа создания курса.
     """
-    course: CourseSchema  # Оставляем обязательным, но сначала проверим данные
-
-    @classmethod
-    def model_validate_json(cls, json_data):
-        try:
-            return super().model_validate_json(json_data)
-        except ValidationError:
-            # Логируем проблемный ответ для отладки
-            print(f"Failed to validate response: {json_data}")
-            raise
+    course: CourseSchema
 
 class UpdateCourseRequestSchema(BaseModel):
     """
     Описание структуры запроса на обновление курса.
     """
 
-    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
+    model_config = ConfigDict(populate_by_name=True)
 
     title: str | None = Field(default_factory=fake.sentence)
     max_score: int | None = Field(alias="maxScore", default_factory=fake.max_score)
