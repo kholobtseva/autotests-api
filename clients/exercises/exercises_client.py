@@ -105,3 +105,5 @@ def get_exercises_client(user: AuthenticationUserSchema) -> ExercisesClient:
     :return: Готовый к использованию объект ExercisesClient.
     """
     return ExercisesClient(client=get_private_http_client(user))
+
+
