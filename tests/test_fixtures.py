@@ -29,3 +29,17 @@ class TestAccountFlow:
 
     def test_user_account(self, settings, user, users_client):
         ...
+
+@pytest.fixture()
+def user_date() -> dict:
+    print("Создаем пользователя до теста (setup)")
+    yield {"username": "test_user", "email": "test@example.com"}
+    print("Удаляем пользователя после теста (teardown)")
+
+def test_user_email(user_date: dict):
+    print(user_date)
+    assert user_date["email"] == "test@example.com"
+
+def test_username(user_date: dict):
+    print(user_date)
+    assert user_date["username"] == "test_user"

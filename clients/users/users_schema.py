@@ -39,7 +39,6 @@ class UpdateUserRequestSchema(BaseModel):
     Описание структуры запроса на обновление пользователя.
     """
     model_config = ConfigDict(populate_by_name=True)
-
     email: EmailStr | None = Field(default_factory=fake.email)
     last_name: str | None = Field(alias="lastName", default_factory=fake.last_name)
     first_name: str | None = Field(alias="firstName", default_factory=fake.first_name)
@@ -58,5 +57,3 @@ class GetUserResponseSchema(BaseModel):
     Описание структуры запроса получения пользователя.
     """
     user: UserSchema
-
-print(CreateUserRequestSchema())

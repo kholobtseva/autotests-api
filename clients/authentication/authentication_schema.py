@@ -37,4 +37,3 @@ class RefreshRequestSchema(BaseModel):  # Наследуем от BaseModel вм
     refresh_token: str = Field(alias="refreshToken", default_factory=fake.sentence())  # Использовали alise
 
 
-print(LoginRequestSchema())
