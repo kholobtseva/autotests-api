@@ -1,8 +1,7 @@
 import http
 import pytest
 
-from clients.authentication.authentication_client import AuthenticationClient
-from clients.users.public_users_client import get_public_users_client, PublicUsersClient
+from clients.users.public_users_client import  PublicUsersClient
 from clients.users.users_schema import CreateUserRequestSchema, CreateUserResponseSchema
 
 from tools.assertions.base import assert_status_code
@@ -21,3 +20,5 @@ def test_create_user(public_users_client:PublicUsersClient):
     assert_create_user_response(request, response_data)
 
     validate_json_schema(response.json(), response_data.model_json_schema())
+
+
