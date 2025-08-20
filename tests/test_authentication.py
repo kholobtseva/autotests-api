@@ -1,7 +1,6 @@
 import pytest
 from http import HTTPStatus
 from clients.authentication.authentication_schema import LoginRequestSchema, LoginResponseSchema
-from clients.users.public_users_client import PublicUsersClient
 from clients.authentication.authentication_client import AuthenticationClient
 from tests.conftest import UserFixture
 from tools.assertions.authentication import assert_login_response
